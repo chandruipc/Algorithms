@@ -9,6 +9,8 @@ import java.util.Map;
  * fib(n) = fib(n-1) + fib(n-2)
  * base condition fib(0) = 0 , fib(1) = 1
  * 
+ * a series of numbers in which each number ( Fibonacci number ) is the sum of the two preceding numbers. The simplest is the series 1, 1, 2, 3, 5, 8, etc.
+ * 
  */
 public class Fibonacci {
 
@@ -19,19 +21,19 @@ public class Fibonacci {
 		Map<Integer,Integer> result = new HashMap<>();
 		
 		
-		System.out.println("calculate Fib");
-		System.out.println("Fib of 0 "+fib.calculateFib(0));
-		System.out.println("Fib of 1 "+fib.calculateFib(1));
-		System.out.println("Fib of 3 "+fib.calculateFib(3));
-		System.out.println("Fib of 5 "+fib.calculateFib(5));
-		System.out.println("Fib of 7 "+fib.calculateFib(7));
+		System.out.println("calculate Fib recursive");		
+		System.out.println("Fib of 5 is :"+fib.calculateFib(5));
+		System.out.println("Fib of 7 is : "+fib.calculateFib(7));
 		
+		System.out.println("##################################");
 		System.out.println("calculate Fib with memoization");
-		System.out.println("Fib of 0 "+fib.calculateFibWithMemoization(0,result));
-		System.out.println("Fib of 1 "+fib.calculateFibWithMemoization(1,result));
-		System.out.println("Fib of 3 "+fib.calculateFibWithMemoization(3,result));
-		System.out.println("Fib of 5 "+fib.calculateFibWithMemoization(5,result));
-		System.out.println("Fib of 7 "+fib.calculateFibWithMemoization(7,result));
+		System.out.println("Fib of 5 is "+fib.calculateFibWithMemoization(5,result));
+		System.out.println("Fib of 7 is : "+fib.calculateFibWithMemoization(7,result));
+		
+		System.out.println("##################################");
+		System.out.println("calculate Fib with iteration");
+		System.out.println("Fib of 5 is : "+fib.calculatFibIteratively(5));
+		System.out.println("Fib of 7 is : "+fib.calculatFibIteratively(7));
 	}
 	
 	
@@ -51,12 +53,33 @@ public class Fibonacci {
 		if(n==1) return 1;
 		
 		if(result!=null && result.containsKey(n)) {
+			System.out.println("Value from memoization for "+n);
 			return result.get(n);
 		}
 		
-		int output = calculateFib(n-1) + calculateFib(n-2);
+		//int output = calculateFib(n-1) + calculateFib(n-2);
+		int output = calculateFibWithMemoization(n-1,result) + calculateFibWithMemoization(n-2,result);
 		result.put(n, output);
 		return output;
 	}
+	
+	public int calculatFibIteratively(int n) {
+		
+		if(n==0 || n==1) return n;
+		
+		int fib0= 0;
+		int fib1= 1;
+		int temp;
+		for(int i=2;i<=n;i++) {
+			
+			temp = fib0+fib1;
+			fib0 = fib1;
+			fib1=temp;
+		}
+		
+		return fib1;
+	}
+	
+	
 
 }
