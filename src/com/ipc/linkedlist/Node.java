@@ -3,7 +3,7 @@ package com.ipc.linkedlist;
 public class Node {
 
 	int data;
-	public Node next;
+	public Node next; // test
 	
 	public Node(int data) {
 		this.data = data;
